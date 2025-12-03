@@ -1,16 +1,15 @@
-FROM ubuntu:24.10 AS ubuntu-base
+FROM ubuntu:24.04 AS ubuntu-base
 # 设置环境变量以避免tzdata的交互式提示
 ENV DEBIAN_FRONTEND=noninteractive
 
 # 换源以使用国内镜像加速
-RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|https://mirrors.tuna.tsinghua.edu.cn/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
-RUN echo 'Acquire::https::Verify-Peer "false";' > /etc/apt/apt.conf.d/99disable-peer-verification
+#RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|https://mirrors.tuna.tsinghua.edu.cn/ubuntu/|g' /etc/apt/sources.list.d/ubuntu.sources
+#RUN echo 'Acquire::https::Verify-Peer "false";' > /etc/apt/apt.conf.d/99disable-peer-verification
 
 # 安装系统依赖
 RUN apt-get update && \
     apt-get install -y python3 python3-pip python3-venv adb curl jq ca-certificates libzbar0 libgl1 libglib2.0-0 && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm /etc/apt/apt.conf.d/99disable-peer-verification
+    rm -rf /var/lib/apt/lists/*
 
 # 设置默认语言环境
 ENV LANG=C.UTF-8
@@ -47,4 +46,3 @@ WORKDIR /mower
 RUN rm -rf /arknights-mower
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
-
