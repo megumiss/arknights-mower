@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # 下载最新版MAA
-curl -L -O $(curl -s https://api.github.com/repos/MaaAssistantArknights/MaaAssistantArknights/releases/latest | \
-    jq -r ".assets[] | select(.name | contains(\"linux\") and contains(\"$(uname -m)\") and contains(\"tar\")) | .browser_download_url")
+# curl -L -O $(curl -s https://api.github.com/repos/MaaAssistantArknights/MaaAssistantArknights/releases/latest | \
+#     jq -r ".assets[] | select(.name | contains(\"linux\") and contains(\"$(uname -m)\") and contains(\"tar\")) | .browser_download_url")
 
-# 解压下载的文件
-mkdir /MAA
-tar -zxvf MAA-*.tar.gz -C /MAA
-rm MAA-*.tar.gz
+# # 解压下载的文件
+# mkdir /MAA
+# tar -zxvf MAA-*.tar.gz -C /MAA
+# rm MAA-*.tar.gz
 
 # 配置MAA路径
 sed -i 's|D:\\\\MAA-v4.13.0-win-x64|/MAA|g' /mower/_internal/arknights_mower/utils/config/conf.py
