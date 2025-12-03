@@ -1,0 +1,20 @@
+services:
+  mower:
+    image: megumiss/mower
+    network_mode: host
+    environment:
+      TZ: "Asia/Shanghai"
+    restart: always
+    volumes:
+      # MAA 挂载
+      - /home/MaaAssistantArknights:/MAA_mount
+      # 配置文件挂载
+      - /home/mower/conf.yml:/mower/conf.yml
+      # 排班文件挂载
+      - /home/mower/plan.json:/mower/plan.json
+      # tmp 文件夹挂载
+      - /home/mower/tmp:/mower/tmp
+    deploy:
+      resources:
+        limits:
+          memory: 2g
